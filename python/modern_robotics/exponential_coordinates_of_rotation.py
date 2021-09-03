@@ -18,10 +18,13 @@ def SO3_to_vec(R: np.array, unit_vec: bool = False) -> np.array:
         :math:`\\theta`).
     """
     if np.abs(R - np.eye(3)).sum() < EPSILON:
-        # If R is equal to identity (to precision)
+        # If R is equal to identity (to precision), angular velocity magnitude
+        # is 0 and direction is undefined.
         theta = 0
         omega = np.full((3, 1), np.nan)
     elif np.abs(R.trace() + 1) < EPSILON:
+        # If trace of R is -1, angular velocity magnitude is pi, and direction
+        # is either x, y, or z, depending on values of R.
         theta = np.pi
         if abs(R[2, 2] + 1) > EPSILON:
             omega = 1/(np.sqrt(2 * (1 + R[2, 2]))) * \
