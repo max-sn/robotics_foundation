@@ -1,5 +1,4 @@
 import numpy as np
-from .constants import EPSILON
 
 
 def SO3_to_vec(R: np.array, unit_vec: bool = False) -> np.array:
@@ -17,22 +16,22 @@ def SO3_to_vec(R: np.array, unit_vec: bool = False) -> np.array:
         :math:`\\theta`, or a tuple with (:math:`\\hat{\\omega}`,
         :math:`\\theta`).
     """
-    if np.abs(R - np.eye(3)).sum() < EPSILON:
+    if np.allclose(R, np.eye(3)):
         # If R is equal to identity (to precision), angular velocity magnitude
         # is 0 and direction is undefined.
         theta = 0
         omega = np.full((3, 1), np.nan)
-    elif np.abs(R.trace() + 1) < EPSILON:
+    elif np.allclose(R.trace(), -1):
         # If trace of R is -1, angular velocity magnitude is pi, and direction
         # is either x, y, or z, depending on values of R.
         theta = np.pi
-        if abs(R[2, 2] + 1) > EPSILON:
+        if not np.allclose(R[2, 2], -1):
             omega = 1/(np.sqrt(2 * (1 + R[2, 2]))) * \
                 (R[:, 2:3] + np.array([[0], [0], [1]]))
-        elif abs(R[1, 1] + 1) > EPSILON:
+        elif not np.allclose(R[1, 1], -1):
             omega = 1/(np.sqrt(2 * (1 + R[1, 1]))) * \
                 (R[:, 1:2] + np.array([[0], [1], [0]]))
-        elif abs(R[0, 0] + 1) > EPSILON:
+        elif not np.allclose(R[0, 0], -1):
             omega = 1/(np.sqrt(2 * (1 + R[0, 0]))) * \
                 (R[:, 0:1] + np.array([[1], [0], [0]]))
     else:
