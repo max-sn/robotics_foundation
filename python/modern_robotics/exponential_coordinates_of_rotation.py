@@ -1,20 +1,27 @@
+"""
+Exponential coordinates of rotation
+===================================
+
+"""
+
 import numpy as np
 
 
-def SO3_to_vec(R: np.array, unit_vec: bool = False) -> np.array:
+def SO3_to_vec(R: np.array) -> np.array:
     """
     'Differentiation' of a rotation matrix by using the matrix log to
     determine the angular velocity that reaches that orientation in unit time.
 
     Args:
-        R (np.array): Rotation matrix
-        unit_vec (bool): Whether or not to return the angular velocity as unit
-                         vector, with its magnitude in a tuple.
+        R: 3 by 3 rotation matrix :math:`\\RotationMatrix \\in \\SOthree`.
 
     Returns:
-        Either returns a single np.array :math:`\\omega` with length
-        :math:`\\theta`, or a tuple with (:math:`\\hat{\\omega}`,
-        :math:`\\theta`).
+        Angular velocity vector :math:`\\omega` with length
+        :math:`\\theta`.
+
+    See Also:
+        :py:func:`so3_to_vec`
+        :py:func:`vec_to_SO3`
     """
     if np.allclose(R, np.eye(3)):
         # If R is equal to identity (to precision), angular velocity magnitude
@@ -39,10 +46,7 @@ def SO3_to_vec(R: np.array, unit_vec: bool = False) -> np.array:
         omega_tilde = 1/(2 * np.sin(theta)) * (R - R.T)
         omega = so3_to_vec(omega_tilde)
 
-    if unit_vec:
-        return omega, theta
-    else:
-        return omega * theta
+    return omega * theta
 
 
 def vec_to_SO3(omega: np.array, theta: float = None) -> np.array:
@@ -54,14 +58,24 @@ def vec_to_SO3(omega: np.array, theta: float = None) -> np.array:
     Uses Rodrigues' formula to solve the matrix exponential of the vector's
     skew-symmetric matrix form.
 
+    .. math::
+
+        \\RotationMatrix =
+        \\exp(\\TildeSkew{\\UnitLength{\\omega}}\\theta) =
+        I + \\TildeSkew{\\UnitLength{\\omega}}\\sin\\theta +
+        \\TildeSkew{\\UnitLength{\\omega}}^2(1-\\cos\\theta) \\in \\SOthree
+
     Args:
-        omega (np.array): 3 vector angular velocity. Can be unit length, in
-                          that case theta should also be provided.
-        theta (float):    Optional. If omitted, the Euclidean length of omega
-                          is assumed to be theta.
+        omega: 3 vector angular velocity. Can be unit length, in that case
+               theta should also be provided.
+        theta: If omitted, the Euclidean norm of omega is assumed to be theta.
 
     Returns:
-        np.array: Rotation matrix R.
+        3 by 3 rotation matrix :math:`\\RotationMatrix \\in \\SOthree`.
+
+    See Also:
+        :py:func:`vec_to_so3`
+        :py:func:`SO3_to_vec`
     """
     if theta is None:
         # If no theta, take length of omega and make omega unit length.
@@ -81,10 +95,13 @@ def vec_to_so3(v: np.array) -> np.array:
     Build a skew-symmetric matrix from a 3 vector.
 
     Args:
-        v (np.array): 3 vector.
+        v: 3 vector.
 
     Returns:
-        np.array: 3 by 3 skew-symmetric matrix form of v.
+        3 by 3 skew-symmetric matrix form of v, :math:`\\TildeSkew{v}`.
+
+    See Also:
+        :py:func:`so3_to_vec`
     """
     return np.array([[0, -v.item(2), v.item(1)],
                      [v.item(2), 0, -v.item(0)],
@@ -97,10 +114,14 @@ def so3_to_vec(v_tilde: np.array) -> np.array:
     performed to see if v_tilde is really skew-symmetric.
 
     Args:
-        v_tilde (np.array): skew-symmetric matrix.
+        v_tilde: 3 by 3 skew-symmetric matrix form of v,
+                 :math:`\\TildeSkew{v}`.
 
     Returns:
-        np.array: 3 vector.
+        3 vector.
+
+    See Also:
+        :py:func:`vec_to_so3`
     """
     return np.array([[v_tilde.item(2, 1)],
                      [v_tilde.item(0, 2)],
