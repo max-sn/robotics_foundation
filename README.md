@@ -1,4 +1,4 @@
-![GitHub](https://img.shields.io/github/license/max-sn/robotics_foundation) ![Read the Docs (version)](https://img.shields.io/readthedocs/robotics_foundation/latest) [![Python 3.7+](https://img.shields.io/badge/python-3.7%2B-blue)](https://www.python.org/downloads/release/python-360/)
+[![Python 3.7+](https://img.shields.io/badge/python-3.7%2B-blue)](https://www.python.org/downloads/release/python-360/) ![GitHub](https://img.shields.io/github/license/max-sn/robotics_foundation) ![Read the Docs (version)](https://img.shields.io/readthedocs/robotics_foundation/latest)
 
 # Robotics Foundation scripts
 
