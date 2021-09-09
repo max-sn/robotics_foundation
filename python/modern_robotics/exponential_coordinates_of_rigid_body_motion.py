@@ -31,7 +31,7 @@ def SE3_to_vec(T: np.array) -> np.array:
     if np.allclose(T, np.eye(4)):
         # If T is equal to identity (to precision), the screw axis is
         # undefined and the distance travelled along the screw axis is 0.
-        omega = np.full((3, 1), np.nan)
+        omega_hat = np.full((3, 1), np.nan)
         v = np.full((3, 1), np.nan)
         theta = 0
     else:
@@ -39,23 +39,25 @@ def SE3_to_vec(T: np.array) -> np.array:
             # If the rotational part of T (the rotation matrix) is equal to
             # identity (to precision), the screw axis is purely translational,
             # i.e. the pitch is infinite.
-            omega = np.zeros((3, 1))
+            omega_hat = np.zeros((3, 1))
             theta = np.linalg.norm(p)
             v = p / theta
         else:
-            omega, theta = SO3_to_vec(R)
+            omega = SO3_to_vec(R)
+            theta = np.linalg.norm(omega)
+            omega_hat = omega / theta
             if np.allclose(p, np.zeros((3, 1))):
                 # If the translational part is zero, the screw axis is purely
                 # angular, i.e. the pitch is zero.
-                v = np.zeros(3, 1)
+                v = np.zeros((3, 1))
             else:
-                omega_tilde = vec_to_so3(omega)
+                omega_tilde = vec_to_so3(omega_hat)
                 v = (1/theta * np.eye(3) - 1/2 * omega_tilde
-                     + (1/theta - 1/2 * np.cot(theta/2))
-                     * np.linalg.matrix_power(omega_tilde, 2)) * p
+                     + (1/theta - 1/2 / np.tan(theta/2))
+                     * np.linalg.matrix_power(omega_tilde, 2)).dot(p)
 
     # Screw axis
-    S = np.stack((omega, v))
+    S = np.vstack((omega_hat, v))
 
     return S * theta
 
@@ -76,8 +78,8 @@ def vec_to_SE3(S: np.array, theta: float) -> np.array:
     See Also:
         :py:func:`SE3_to_vec`
     """
-    omega = S[:4]
-    v = S[4:]
+    omega = S[:3]
+    v = S[3:]
     if np.allclose(omega, np.zeros((3, 1))):
         R = np.eye(3)
         p = v * theta
@@ -86,7 +88,7 @@ def vec_to_SE3(S: np.array, theta: float) -> np.array:
         omega_tilde = vec_to_so3(omega)
         p = (np.eye(3) * theta + (1 - np.cos(theta)) * omega_tilde
              + (theta - np.sin(theta))
-             * np.linalg.matrix_power(omega_tilde, 2))
+             * np.linalg.matrix_power(omega_tilde, 2)).dot(v)
 
     return R_p_to_SE3(R, p)
 
