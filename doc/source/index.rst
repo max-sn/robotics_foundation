@@ -14,15 +14,19 @@ Robotics Foundation
    :maxdepth: 2
    :caption: Contents:
 
-   exponential_coordinates_of_rotation
-   exponential_coordinates_of_rigid_body_motion
+
+.. toctree::
+   :maxdepth: 1
+   :caption: API:
+
+   Python <python>
+   Matlab <matlab>
 
 This repository contains Python scripts to be used alongside the Robotics Foundation course of the `master program Robotics Systems Engineering <https://www.saxion.edu/programmes/master/robotics-systems-engineering>`_, offered by `Saxion University of Applied Sciences <https://www.saxion.edu/>`_.
 
 .. warning::
    These scripts are mainly intended for educational purposes and are neither optimized for efficiency nor robustness.
 
-Future work might include Matlab™ versions of the Python scripts.
 
 Indices and tables
 ==================

@@ -34,6 +34,7 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
+    'sphinxcontrib.matlab',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -74,7 +75,6 @@ with open('math_cmds.tex', 'r') as f:
     for line in f:
         macros = re.findall(
             r'\\newcommand{\\(.*?)}(\[(\d)\])?(\[(.*?)\])?{(.+)}', line)
-        print(macros)
         for macro in macros:
             if len(macro[1]) == 0:
                 mathjax3_config['tex']['macros'][macro[0]] = macro[5]
@@ -85,3 +85,7 @@ with open('math_cmds.tex', 'r') as f:
                 mathjax3_config['tex']['macros'][macro[0]] = [macro[5],
                                                               macro[2],
                                                               macro[4]]
+
+# -- Matlab domain extension configuration -----------------------------------
+
+matlab_src_dir = os.path.abspath('../../matlab')
