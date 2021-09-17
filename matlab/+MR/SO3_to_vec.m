@@ -1,4 +1,4 @@
-function omega = SO3_to_vec(obj, R)
+function omega = SO3_to_vec(R)
 % 'Differentiation' of a rotation matrix by using the matrix log to
 % determine the angular velocity that reaches that orientation in unit time.
 %
@@ -29,7 +29,7 @@ elseif abs(trace(R) + 1) < 1e-5
 else
     theta = acos((trace(R) - 1)/2);
     omega_hat_tilde = 1/(2 * sin(theta)) * (R - R');
-    omega_hat = obj.little_so3_to_vec(omega_hat_tilde);
+    omega_hat = MR.little_so3_to_vec(omega_hat_tilde);
 end
 
 omega = omega_hat .* theta;
