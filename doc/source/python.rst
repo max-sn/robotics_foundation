@@ -1,5 +1,5 @@
 Python API
 ==========
 
-.. automodule:: modern_robotics
+.. automodule:: modern_robotics.num
   :members:
