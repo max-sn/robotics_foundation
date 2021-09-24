@@ -65,7 +65,7 @@ html_static_path = ['_static']
 
 # -- Autodoc extension configuration -----------------------------------------
 
-autodoc_mock_imports = ['numpy']
+autodoc_mock_imports = ['numpy', 'sympy']
 
 # -- Mathjax extension configuration -----------------------------------------
 
