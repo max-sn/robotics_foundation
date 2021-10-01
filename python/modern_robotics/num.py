@@ -296,3 +296,30 @@ def R_p_to_SE3(R: np.array, p: np.array) -> np.array:
     """
     return np.vstack((np.hstack((R, p)),
                       np.array([0, 0, 0, 1])))
+
+
+def manipulability(J: np.array) -> np.array:
+    """
+    Calculates the direction and magnitude of the principal axes of the
+    manipulability ellipsoid, and the ratio between largest and smallest
+    eigenvalue of :math:`\\Jacobian\\Jacobian\\Transposed`.
+
+    Args:
+        J: Jacobian matrix
+
+    Returns:
+        Tuple with 2D array containing the principal axes of the manipulability
+        ellipsoid, and the condition number.
+    """
+    A = J @ J.T
+
+    if np.allclose(np.linalg.det(A), 0):
+        raise np.linalg.LinAlgError('Singular matrix')
+
+    w, v = np.linalg.eigh(A)
+
+    cond = np.max(w) / np.min(w)
+
+    H = np.hstack(tuple(np.sqrt(w[i]) * v[:, i:i+1] for i in range(len(w))))
+
+    return H, cond

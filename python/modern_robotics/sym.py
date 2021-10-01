@@ -2,7 +2,7 @@
 Symbolic functions
 ------------------
 
-This module contains symbolic implementations of the same functions as
+This module contains symbolic implementations of most of the same functions as
 :py:mod:`modern_robotics.num`, using
 `sympy <https://www.sympy.org/en/index.html>`_. These implementations can be
 loaded by using ``from modern_robotics.sym import *``.
