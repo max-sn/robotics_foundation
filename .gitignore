@@ -1,3 +1,7 @@
 doc/build/*
 make.bat
 Makefile
+
+# Ignore test files
+**/*test.py
+**/*test.m
