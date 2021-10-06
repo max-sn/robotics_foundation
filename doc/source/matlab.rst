@@ -2,7 +2,7 @@ Matlab API
 ==========
 
 .. warning::
-   Matlab™ scripts are a work in progress and will generally lag behind the available Python scripts.
+   |matlab| scripts are a work in progress and will generally lag behind the available |python| scripts.
 
 .. mat:automodule:: +MR
   :members:

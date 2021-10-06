@@ -21,7 +21,7 @@ Robotics Foundation
    :caption: API:
 
    Python <python>
-   Matlab <matlab>
+   MATLAB® <matlab>
 
 This repository contains Python scripts to be used alongside the Robotics Foundation course of the `master program Robotics Systems Engineering <https://www.saxion.edu/programmes/master/robotics-systems-engineering>`_, offered by `Saxion University of Applied Sciences <https://www.saxion.edu/>`_.
 
