@@ -14,6 +14,7 @@ Robotics Foundation
    :maxdepth: 2
    :caption: Contents:
 
+   quickstart
 
 .. toctree::
    :maxdepth: 1

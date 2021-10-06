@@ -35,6 +35,7 @@ extensions = [
     'sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
     'sphinxcontrib.matlab',
+    'sphinx_design',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -93,3 +94,11 @@ with open('math_cmds.tex', 'r') as f:
 # -- Matlab domain extension configuration -----------------------------------
 
 matlab_src_dir = os.path.abspath('../../matlab')
+
+
+# -- General Sphinx settings --------------------------------------------------
+rst_prolog = r"""
+
+.. |matlab| replace:: MATLAB\ :sup:`®`
+.. |python| replace:: Python
+"""
