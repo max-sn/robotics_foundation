@@ -15,6 +15,8 @@ Robotics Foundation
    :caption: Contents:
 
    quickstart
+   notation
+
 
 .. toctree::
    :maxdepth: 1
@@ -32,7 +34,7 @@ This repository contains Python scripts to be used alongside the Robotics Founda
 Indices and tables
 ==================
 
-.. * :ref:`genindex`
+* :ref:`genindex`
 
 * :ref:`modindex`
 
