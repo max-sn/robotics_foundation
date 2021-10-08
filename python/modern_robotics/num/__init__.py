@@ -1,18 +1,19 @@
 """
-Symbolic functions
-------------------
+``modern_robotics.num``
+=======================
 
-This module contains symbolic implementations of most of the same functions as
-:py:mod:`modern_robotics.num`, using
-`sympy <https://www.sympy.org/en/index.html>`_. These implementations can be
-loaded by using ``from modern_robotics.sym import *``.
+This module contains numerical implementations, using
+`numpy <https://numpy.org/>`_. These implementations are the default when using
+``import modern_robotics``. They can be loaded specifically by using
+``import modern_robotics.num as mr``.
 
 """
 
-import sympy as sp
+import numpy as np
+from . import gen
 
 
-def SO3_to_vec(R: sp.Matrix) -> sp.Matrix:
+def SO3_to_vec(R: np.array) -> np.array:
     """
     'Differentiation' of a rotation matrix by using the matrix log to
     determine the angular velocity that reaches that orientation in unit time.
@@ -28,33 +29,33 @@ def SO3_to_vec(R: sp.Matrix) -> sp.Matrix:
         :py:func:`so3_to_vec`
         :py:func:`vec_to_SO3`
     """
-    if sp.eye(3).equals(R):
+    if np.allclose(R, np.eye(3)):
         # If R is equal to identity (to precision), angular velocity magnitude
         # is 0 and direction is undefined.
-        theta = sp.Integer(0)
-        omega = sp.Matrix([[sp.nan], [sp.nan], [sp.nan]])
-    elif sp.simplify(sp.Trace(R)) == -1:
+        theta = 0
+        omega = np.full((3, 1), np.nan)
+    elif np.allclose(R.trace(), -1):
         # If trace of R is -1, angular velocity magnitude is pi, and direction
         # is either x, y, or z, depending on values of R.
-        theta = sp.pi
-        if not R[2, 2] == -1:
-            omega = 1/(sp.sqrt(2 * (1 + R[2, 2]))) * \
-                (R[:, 2] + sp.Matrix([[0], [0], [1]]))
-        elif not R[1, 1] == -1:
-            omega = 1/(sp.sqrt(2 * (1 + R[1, 1]))) * \
-                (R[:, 1] + sp.Matrix([[0], [1], [0]]))
-        elif not R[0, 0] == -1:
-            omega = 1/(sp.sqrt(2 * (1 + R[0, 0]))) * \
-                (R[:, 0] + sp.Matrix([[1], [0], [0]]))
+        theta = np.pi
+        if not np.allclose(R[2, 2], -1):
+            omega = 1/(np.sqrt(2 * (1 + R[2, 2]))) * \
+                (R[:, 2:3] + np.array([[0], [0], [1]]))
+        elif not np.allclose(R[1, 1], -1):
+            omega = 1/(np.sqrt(2 * (1 + R[1, 1]))) * \
+                (R[:, 1:2] + np.array([[0], [1], [0]]))
+        elif not np.allclose(R[0, 0], -1):
+            omega = 1/(np.sqrt(2 * (1 + R[0, 0]))) * \
+                (R[:, 0:1] + np.array([[1], [0], [0]]))
     else:
-        theta = sp.acos((sp.simplify(sp.Trace(R)) - 1)/2)
-        omega_tilde = 1/(2 * sp.sin(theta)) * (R - R.T)
+        theta = np.arccos(1/2 * (R.trace() - 1))
+        omega_tilde = 1/(2 * np.sin(theta)) * (R - R.T)
         omega = so3_to_vec(omega_tilde)
 
     return omega * theta
 
 
-def vec_to_SO3(omega: sp.Matrix, theta: sp.Number = None) -> sp.Matrix:
+def vec_to_SO3(omega: np.array, theta: float = None) -> np.array:
     """
     'Integration' of an angular velocity to determine the orientation
     (expressed as rotation matrix) that this angular velocity reaches in unit
@@ -84,18 +85,18 @@ def vec_to_SO3(omega: sp.Matrix, theta: sp.Number = None) -> sp.Matrix:
     """
     if theta is None:
         # If no theta, take length of omega and make omega unit length.
-        theta = omega.norm()  # 2-norm (Euclidean length)
-        omega = omega.normalized()
+        theta = np.linalg.norm(omega)
+        omega = omega / theta
 
     # Skew-symmetric form of omega
     omega_tilde = vec_to_so3(omega)
 
     # Rodrigues' formula
-    return sp.eye(3) + sp.sin(theta) * omega_tilde + \
-        (1 - sp.cos(theta)) * omega_tilde**2
+    return np.eye(3) + np.sin(theta) * omega_tilde + \
+        (1 - np.cos(theta)) * np.linalg.matrix_power(omega_tilde, 2)
 
 
-def vec_to_so3(v: sp.Matrix) -> sp.Matrix:
+def vec_to_so3(v: np.array) -> np.array:
     """
     Build a skew-symmetric matrix from a 3 vector.
 
@@ -108,12 +109,12 @@ def vec_to_so3(v: sp.Matrix) -> sp.Matrix:
     See Also:
         :py:func:`so3_to_vec`
     """
-    return sp.Matrix([[0, -v[2, 0], v[1, 0]],
-                      [v[2, 0], 0, -v[0, 0]],
-                      [-v[1, 0], v[0, 0], 0]])
+    return np.array([[0, -v.item(2), v.item(1)],
+                     [v.item(2), 0, -v.item(0)],
+                     [-v.item(1), v.item(0), 0]])
 
 
-def so3_to_vec(v_tilde: sp.Matrix) -> sp.Matrix:
+def so3_to_vec(v_tilde: np.array) -> np.array:
     """
     Reconstruct a 3 vector from its skew-symmetric matrix form. No check is
     performed to see if v_tilde is really skew-symmetric.
@@ -128,12 +129,65 @@ def so3_to_vec(v_tilde: sp.Matrix) -> sp.Matrix:
     See Also:
         :py:func:`vec_to_so3`
     """
-    return sp.Matrix([[v_tilde[2, 1]],
-                      [v_tilde[0, 2]],
-                      [v_tilde[1, 0]]])
+    return np.array([[v_tilde.item(2, 1)],
+                     [v_tilde.item(0, 2)],
+                     [v_tilde.item(1, 0)]])
 
 
-def vec_to_SE3(S: sp.Matrix, theta: sp.Number) -> sp.Matrix:
+def SE3_to_vec(T: np.array) -> np.array:
+    """
+    'Differentiation' of a transformation matrix by using the matrix log of its
+    rotation matrix to determine the screw velocity vector (twist) that reaches
+    this transformation in unit time.
+
+    Args:
+        T: Homogeneous transformation matrix
+
+    Returns:
+        Velocity twist vector :math:`\\Twist` with length
+        :math:`\\theta`
+
+    See Also:
+        :py:func:`vec_to_SE3`
+    """
+    R = T[0:3, 0:3]
+    p = T[0:3, 3:4]
+
+    if np.allclose(T, np.eye(4)):
+        # If T is equal to identity (to precision), the screw axis is
+        # undefined and the distance travelled along the screw axis is 0.
+        omega_hat = np.full((3, 1), np.nan)
+        v = np.full((3, 1), np.nan)
+        theta = 0
+    else:
+        if np.allclose(R, np.eye(3)):
+            # If the rotational part of T (the rotation matrix) is equal to
+            # identity (to precision), the screw axis is purely translational,
+            # i.e. the pitch is infinite.
+            omega_hat = np.zeros((3, 1))
+            theta = np.linalg.norm(p)
+            v = p / theta
+        else:
+            omega = SO3_to_vec(R)
+            theta = np.linalg.norm(omega)
+            omega_hat = omega / theta
+            if np.allclose(p, np.zeros((3, 1))):
+                # If the translational part is zero, the screw axis is purely
+                # angular, i.e. the pitch is zero.
+                v = np.zeros((3, 1))
+            else:
+                omega_tilde = vec_to_so3(omega_hat)
+                v = (1/theta * np.eye(3) - 1/2 * omega_tilde
+                     + (1/theta - 1/2 / np.tan(theta/2))
+                     * np.linalg.matrix_power(omega_tilde, 2)).dot(p)
+
+    # Screw axis
+    S = np.vstack((omega_hat, v))
+
+    return S * theta
+
+
+def vec_to_SE3(S: np.array, theta: float) -> np.array:
     """
     'Integration' of a velocity twist to determine the configuration (expressed
     as transformation matrix) that this velocity twist reaches in unit time.
@@ -149,22 +203,22 @@ def vec_to_SE3(S: sp.Matrix, theta: sp.Number) -> sp.Matrix:
     See Also:
         :py:func:`SE3_to_vec`
     """
-    omega = S[:3, 0]
-    v = S[3:, 0]
-    if sp.zeros(3, 1).equals(omega):
-        R = sp.eye(3)
+    omega = S[:3]
+    v = S[3:]
+    if np.allclose(omega, np.zeros((3, 1))):
+        R = np.eye(3)
         p = v * theta
     else:
         R = vec_to_SO3(omega, theta)
         omega_tilde = vec_to_so3(omega)
-        p = (sp.eye(3) * theta + (1 - sp.cos(theta)) * omega_tilde
-             + (theta - sp.sin(theta))
-             * omega_tilde**2) * v
+        p = (np.eye(3) * theta + (1 - np.cos(theta)) * omega_tilde
+             + (theta - np.sin(theta))
+             * np.linalg.matrix_power(omega_tilde, 2)).dot(v)
 
     return R_p_to_SE3(R, p)
 
 
-def big_adjoint(T: sp.Matrix) -> sp.Matrix:
+def big_adjoint(T: np.array) -> np.array:
     """
     Constructs the 'big adjoint' form of the transformation matrix T.
 
@@ -192,11 +246,11 @@ def big_adjoint(T: sp.Matrix) -> sp.Matrix:
     R = T[0:3, 0:3]
     p_tilde = vec_to_so3(T[0:3, 3:4])
 
-    return sp.Matrix.vstack(sp.Matrix.hstack(R, sp.zeros(3, 3)),
-                            sp.Matrix.hstack(p_tilde * R, R))
+    return np.vstack((np.hstack((R, np.zeros((3, 3)))),
+                      np.hstack((p_tilde.dot(R), R))))
 
 
-def inv_SE3(T: sp.Matrix) -> sp.Matrix:
+def inv_SE3(T: np.array) -> np.array:
     """
     Inverts the transformation matrix T.
 
@@ -225,10 +279,10 @@ def inv_SE3(T: sp.Matrix) -> sp.Matrix:
     R = T[0:3, 0:3]
     p = T[0:3, 3:4]
 
-    return R_p_to_SE3(R.T, -R.T * p)
+    return R_p_to_SE3(R.T, np.dot(-R.T, p))
 
 
-def R_p_to_SE3(R: sp.Matrix, p: sp.Matrix) -> sp.Matrix:
+def R_p_to_SE3(R: np.array, p: np.array) -> np.array:
     """
     Constructs a homogeneous transformation matrix from a rotation matrix and
     displacement vector.
@@ -241,5 +295,32 @@ def R_p_to_SE3(R: sp.Matrix, p: sp.Matrix) -> sp.Matrix:
         4 by 4 homogeneous transformation matrix
         :math:`\\HomogeneousTransformationMatrix \\in \\SEthree`
     """
-    return sp.Matrix.vstack(sp.Matrix.hstack(R, p),
-                            sp.Matrix([[0, 0, 0, 1]]))
+    return np.vstack((np.hstack((R, p)),
+                      np.array([0, 0, 0, 1])))
+
+
+def manipulability(J: np.array) -> np.array:
+    """
+    Calculates the direction and magnitude of the principal axes of the
+    manipulability ellipsoid, and the ratio between largest and smallest
+    eigenvalue of :math:`\\Jacobian\\Jacobian\\Transposed`.
+
+    Args:
+        J: Jacobian matrix
+
+    Returns:
+        Tuple with 2D array containing the principal axes of the manipulability
+        ellipsoid, and the condition number.
+    """
+    A = J @ J.T
+
+    if np.allclose(np.linalg.det(A), 0):
+        raise np.linalg.LinAlgError('Singular matrix')
+
+    w, v = np.linalg.eigh(A)
+
+    cond = np.max(w) / np.min(w)
+
+    H = np.hstack(tuple(np.sqrt(w[i]) * v[:, i:i+1] for i in range(len(w))))
+
+    return H, cond
