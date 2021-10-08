@@ -1,8 +1,9 @@
 Python API
 ==========
 
-.. automodule:: modern_robotics.num
-  :members:
+.. toctree::
+   :maxdepth: 1
+   :caption: Subpackages
 
-.. automodule:: modern_robotics.sym
-  :members:
+   python/num
+   python/sym
