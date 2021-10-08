@@ -38,8 +38,6 @@ function T = Tt(varargin)
 %            0     0     1     6
 %            0     0     0     1
 
-
-
 % Parse input arguments
 p = inputParser;
 addOptional(p, 't', NaN);
