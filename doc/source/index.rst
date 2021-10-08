@@ -15,6 +15,7 @@ Robotics Foundation
    :caption: Contents:
 
    quickstart
+   topics
    notation
 
 
