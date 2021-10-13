@@ -33,7 +33,10 @@ The following symbols are used often.
     - Rotation matrix, :math:`\RotationMatrix \in \SOthree`.
   * - :math:`\HomogeneousTransformationMatrix`
     - Homogeneous transformation matrix, :math:`\HomogeneousTransformationMatrix \in \SEthree`.
-    
+  * - :math:`\Adjoint{\PHrule}`
+    - Big adjoint of the transformation matrix :math:`\PHrule`. See `Big- and little adjoint`_.
+  * - :math:`\LittleAdjoint{\PHrule}`
+    - Little adjoint of the velocity twist :math:`\PHrule`. See `Big- and little adjoint`_.
 
 
 Sub- and superscripts
@@ -72,6 +75,7 @@ In general the placing of these scripts is to ensure that multiplications are ap
   \FromTo{\color{green}c}{\color{red}b}{\HomogeneousTransformationMatrix}
 
 Notice how the matching scripts (in red) are side-by-side, and drop out in the outcome.
+
 
 Tilde notation
 --------------
@@ -125,6 +129,7 @@ For twists, the tilde notation is used as follows:
 
 Where the result is the 4 by 4 times matrix that is in the :math:`\sethree` space.
 
+
 Hat notation
 ------------
 
@@ -153,3 +158,48 @@ Note that the definition of a unit twist :math:`\UnitLength{\Twist}` is slightly
      \begin{bmatrix}
      0 \\ \UnitLength{v}
      \end{bmatrix}
+
+
+Big- and little adjoint
+-----------------------
+
+Adjoint, or adjunction, is a term regularly used in mathematics to denote another form of a certain entity. In this set of documentation, we have the adjoint form of a homogeneous transformation matrix, referred to as the big adjoint, and denoted with :math:`\Adjoint{}`, and the adjoint form of a velocity twist vector, referred to as the little- or small adjoint, denoted with :math:`\LittleAdjoint{}`.
+
+A general homogeneous transformation matrix is constructed from a rotation matrix :math:`\RotationMatrix` and translation vector :math:`p` as follows:
+
+.. math::
+
+  \HomogeneousTransformationMatrix =
+  \begin{bmatrix}
+  \RotationMatrix & p \\
+  0 & 1 \\
+  \end{bmatrix}
+
+The big adjoint form of that rotation matrix is then constructed as follows:
+
+.. math::
+
+  \Adjoint{\HomogeneousTransformationMatrix} =
+  \begin{bmatrix}
+  \RotationMatrix & 0 \\
+  \TildeSkew{p}\RotationMatrix & \RotationMatrix
+  \end{bmatrix}
+
+A general velocity twist is constructed from angular velocity and linear velocity as follows:
+
+.. math::
+  
+  \Twist =
+  \begin{bmatrix}
+  \omega \\ V
+  \end{bmatrix}
+
+The little adjoint form of that velocity twist is then constructed as follows:
+
+.. math::
+
+  \LittleAdjoint{\Twist} =
+  \begin{bmatrix}
+  \TildeSkew{\omega} & 0 \\
+  \TildeSkew{v} & \TildeSkew{\omega} 
+  \end{bmatrix}
