@@ -197,6 +197,37 @@ def big_adjoint(T: sp.Matrix) -> sp.Matrix:
                             sp.Matrix.hstack(p_tilde * R, R))
 
 
+def little_adjoint(V: sp.Matrix) -> sp.Matrix:
+    """
+    Constructs the 'little adjoint' form of the velocity twist V.
+
+    .. math::
+
+        \\Twist =
+        \\begin{bmatrix}
+        \\omega \\\\ v
+        \\end{bmatrix}
+        \\quad\\Rightarrow\\quad
+        \\LittleAdjoint{\\Twist} =
+        \\begin{bmatrix}
+        \\TildeSkew{\\omega} & 0 \\\\
+        \\TildeSkew{v} & \\TildeSkew{\\omega}
+        \\end{bmatrix}
+
+    Args:
+        V: 6 by 1 velocity twist
+
+    Returns:
+        6 by 6 'little adjoint' form of the twist V
+    """
+    w = V[:3, 0]
+    v = V[3:, 0]
+
+    return sp.Matrix.vstack(sp.Matrix.hstack(vec_to_so3(w),
+                                             sp.Matrix.zeros(3, 3)),
+                            sp.Matrix.hstack(vec_to_so3(v), vec_to_so3(w)))
+
+
 def inv_SE3(T: sp.Matrix) -> sp.Matrix:
     """
     Inverts the transformation matrix T.

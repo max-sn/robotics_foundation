@@ -250,6 +250,36 @@ def big_adjoint(T: np.array) -> np.array:
                       np.hstack((p_tilde.dot(R), R))))
 
 
+def little_adjoint(V: np.array) -> np.array:
+    """
+    Constructs the 'little adjoint' form of the velocity twist V.
+
+    .. math::
+
+        \\Twist =
+        \\begin{bmatrix}
+        \\omega \\\\ v
+        \\end{bmatrix}
+        \\quad\\Rightarrow\\quad
+        \\LittleAdjoint{\\Twist} =
+        \\begin{bmatrix}
+        \\TildeSkew{\\omega} & 0 \\\\
+        \\TildeSkew{v} & \\TildeSkew{\\omega}
+        \\end{bmatrix}
+
+    Args:
+        V: 6 by 1 velocity twist
+
+    Returns:
+        6 by 6 'little adjoint' form of the twist V
+    """
+    w = V[:3]
+    v = V[3:]
+
+    return np.vstack((np.hstack((vec_to_so3(w), np.zeros((3, 3)))),
+                      np.hstack((vec_to_so3(v), vec_to_so3(w)))))
+
+
 def inv_SE3(T: np.array) -> np.array:
     """
     Inverts the transformation matrix T.
