@@ -1,6 +1,5 @@
 """
-``modern_robotics.num``
-=======================
+.. rubric:: ``modern_robotics.num``
 
 This module contains numerical implementations, using
 `numpy <https://numpy.org/>`_. These implementations are the default when using

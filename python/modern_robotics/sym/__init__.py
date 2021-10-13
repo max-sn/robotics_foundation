@@ -1,6 +1,5 @@
 """
-Symbolic functions
-------------------
+.. rubric:: ``modern_robotics.sym``
 
 This module contains symbolic implementations of most of the same functions as
 :py:mod:`modern_robotics.num`, using

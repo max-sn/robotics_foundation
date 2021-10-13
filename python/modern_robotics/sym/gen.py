@@ -1,6 +1,5 @@
 """
-``modern_robotics.sym.gen``
-===========================
+.. rubric:: ``modern_robotics.sym.gen``
 
 This submodule contains convenient functions to generate transformation
 matrices.
