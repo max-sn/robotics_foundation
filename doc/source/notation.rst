@@ -37,6 +37,12 @@ The following symbols are used often.
     - Big adjoint of the transformation matrix :math:`\PHrule`. See `Big- and little adjoint`_.
   * - :math:`\LittleAdjoint{\PHrule}`
     - Little adjoint of the velocity twist :math:`\PHrule`. See `Big- and little adjoint`_.
+  * - :math:`\PHrule\Transposed`
+    - Transposed of matrix :math:`\PHrule`, obtained by flipping along the diagonal.
+  * - :math:`\trace\PHrule`
+    - Trace of matrix :math:`\PHrule`, obtained by summing the diagonal elements.
+  * - :math:`\PHrule\PseudoInverse`
+    - Pseudoinverse of the matrix :math:`\PHrule`. The matrix can be singular, or non-square.
 
 
 Sub- and superscripts
