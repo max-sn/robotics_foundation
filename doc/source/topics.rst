@@ -8,3 +8,4 @@ Topics
   topics/session3
   topics/session6
   topics/session7
+  topics/session8
