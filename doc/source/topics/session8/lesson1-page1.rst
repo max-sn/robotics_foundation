@@ -54,7 +54,7 @@ A function :math:`x(t)` is even if :math:`x(t)=x(-t)` for all :math:`t`.
 
 .. rubric:: Odd
 
-A function :math:`x(t)` is even if :math:`x(t)=-x(-t)` for all :math:`t`.
+A function :math:`x(t)` is odd if :math:`x(t)=-x(-t)` for all :math:`t`.
 
 .. figure:: /_static/figures/session8/signals/symmetry-004.svg
 
