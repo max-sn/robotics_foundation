@@ -4,9 +4,6 @@ Topics
 .. toctree::
   :maxdepth: 1
   :caption: Sessions
+  :glob:
 
-  topics/session3
-  topics/session6
-  topics/session7
-  topics/session8
-  topics/session9
+  topics/session*
