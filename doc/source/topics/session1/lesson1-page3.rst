@@ -15,27 +15,20 @@ Where :math:`m` is the number of degrees of freedom per body (6 for spatial bodi
 
 Typical types of joints are listed in the table below.
 
-.. list-table::
-  :header-rows: 1
+.. table::
 
-  * - Joint
-    - Constraints
-    - Freedoms
-  * - Revolute (R)
-    - 5
-    - 1
-  * - Prismatic (P)
-    - 5
-    - 1
-  * - Universal (U)
-    - 4
-    - 2
-  * - Spherical (S)
-    - 3
-    - 3
-  * - Helical (H)
-    - 5
-    - 1
-  * - Cylindrical (C)
-    - 4
-    - 2
+  +-----------------+-------------+----------+
+  | Joint           | Constraints | Freedoms |
+  +=================+=============+==========+
+  | Revolute (R)    | 5           | 1        |
+  +-----------------+-------------+----------+
+  | Prismatic (P)   | 5           | 1        |
+  +-----------------+-------------+----------+
+  | Universal (U)   | 4           | 2        |
+  +-----------------+-------------+----------+
+  | Spherical (S)   | 3           | 3        |
+  +-----------------+-------------+----------+
+  | Helical (H)     | 5           | 1        |
+  +-----------------+-------------+----------+
+  | Cylindrical (C) | 4           | 2        |
+  +-----------------+-------------+----------+
