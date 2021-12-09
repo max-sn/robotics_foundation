@@ -20,4 +20,4 @@ Similarly to the PoE formula in the space frame, we can find the same transforma
       \cdots
       \exp({\tilde{\BodyScrew}_n\theta_n})
 
-   Where the matrix exponentials are now multiplied on the <em>right</em> of :math:`M`, because the screw axes, and therefore the transformations resulting from the matrix exponentials, are expressed in the body frame :math:`\CoorSys{b}`, in this case the end-effector frame.
+   Where the matrix exponentials are now multiplied on the *right* of :math:`M`, because the screw axes, and therefore the transformations resulting from the matrix exponentials, are expressed in the body frame :math:`\CoorSys{b}`, in this case the end-effector frame.
