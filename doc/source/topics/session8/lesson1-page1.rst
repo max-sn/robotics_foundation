@@ -230,27 +230,31 @@ For convolution, the Dirac delta function is the so-called *neutral element*, be
 We can swap :math:`t-\tau` with :math:`\tau-t` because the Dirac delta function is even, so :math:`\delta(t)=\delta(-t)`.
 
 
-.. rubric:: Example
+.. admonition:: Example
 
-Let's use two unit step functions as an example. For one of the step functions we substitute :math:`t` with :math:`t - \tau`, and we multiply both functions. We can visualize the result as follows, where we change :math:`t` and look at the different signals:
+  Let's use two unit step functions as an example. For one of the step functions we substitute :math:`t` with :math:`t - \tau`, and we multiply both functions. We can visualize the result as follows, where we change :math:`t` and look at the different signals:
 
-.. raw:: html
-  
-  <figure>
-    <object data="/_static/figures/session8/convolution1/master.svg" type="image/svg+xml" width="650px"></object>
-    <figcaption>Animation showing the convolution of two unit step functions.</figcaption>
-  </figure>
+  .. raw:: html
 
-The bottom-right graph is the result of the convolution, which is nothing more than the area under the third graph.
+    <figure class="align-default" id="convolution-anim-1">
+      <object data="/_static/figures/session8/convolution1/master.svg" type="image/svg+xml" width="650px"></object>
+      <figcaption>
+        <p><span class="caption-text">Animation showing the convolution of two unit step functions.</span><a class="headerlink" href="#convolution-anim-1" title="Permalink to this image"></a></p>
+      </figcaption>
+    </figure>
 
-Another example is the convolution of a unit step function with the ramp function. Again we change :math:`t` and look at the different signals:
+  The bottom-right graph is the result of the convolution, which is nothing more than the area under the third graph.
 
-.. raw:: html
-  
-  <figure>
-    <object data="/_static/figures/session8/convolution2/master.svg" type="image/svg+xml" width="650px"></object>
-    <figcaption>Animation showing the convolution of a unit step function with a ramp function.</figcaption>
-  </figure>
+  Another example is the convolution of a unit step function with the ramp function. Again we change :math:`t` and look at the different signals:
+
+  .. raw:: html
+
+    <figure class="align-default" id="convolution-anim-2">
+      <object data="/_static/figures/session8/convolution2/master.svg" type="image/svg+xml" width="650px"></object>
+      <figcaption>
+        <p><span class="caption-text">Animation showing the convolution of a unit step function with a ramp function.</span><a class="headerlink" href="#convolution-anim-2" title="Permalink to this image"></a></p>
+      </figcaption>
+    </figure>
 
 Before we can understand exactly how and why convolution is so important, we have to dive a little deeper into systems. We will do that on the next page.
 
@@ -262,54 +266,58 @@ With MATLAB or numpy you can do numerical convolution of sampled signals. Note t
 
 See the following example. Can you explain why there is a downward ramp on the right of the resulting signal?
 
-.. rubric:: Python numpy
+.. tab-set::
 
-.. code-block:: python
+  .. tab-item:: Python
+    :sync: PYTHON
+
+    .. code-block:: python
+      
+      import numpy as np
+      import matplotlib.pyplot as plt
+
+
+      def step(t):
+          return (t > 0).astype(np.float)
+
+
+      def rect(t):
+          return step(t+1/2) * step(-t+1/2)
+
+
+      dur = 5           # uni-lateral time length
+      N = 101           # number of samples
+      dt = dur/(N - 1)  # time step duration
+
+      t = np.linspace(-dur, dur, N)
+      x = step(t)
+      y = rect(t)
+
+      xy = dt * np.convolve(x, y, mode='same')
+
+      plt.plot(t, xy)
   
-  import numpy as np
-  import matplotlib.pyplot as plt
+  .. tab-item:: MATLAB
+    :sync: MATLAB
 
+    .. code-block:: matlab
 
-  def step(t):
-      return (t > 0).astype(np.float)
+      dur = 5;           % uni-lateral time length
+      N = 101;           % number of samples
+      dt = dur/(N - 1);  % time step duration
 
+      t = linspace(-5, 5, 101);
+      x = step(t);
+      y = rect(t);
 
-  def rect(t):
-      return step(t+1/2) * step(-t+1/2)
+      xy = conv(x, y, 'same');
 
+      plot(t, xy)
 
-  dur = 5           # uni-lateral time length
-  N = 101           # number of samples
-  dt = dur/(N - 1)  # time step duration
+      function x = step(t)
+          x = double(t > 0);
+      end
 
-  t = np.linspace(-dur, dur, N)
-  x = step(t)
-  y = rect(t)
-
-  xy = dt * np.convolve(x, y, mode='same')
-
-  plt.plot(t, xy)
-
-.. rubric:: MATLAB
-
-.. code-block:: matlab
-
-  dur = 5;           % uni-lateral time length
-  N = 101;           % number of samples
-  dt = dur/(N - 1);  % time step duration
-
-  t = linspace(-5, 5, 101);
-  x = step(t);
-  y = rect(t);
-
-  xy = conv(x, y, 'same');
-
-  plot(t, xy)
-
-  function x = step(t)
-      x = double(t > 0);
-  end
-
-  function x = rect(t)
-      x = step(t+1/2) .* step(-t+1/2);
-  end
+      function x = rect(t)
+          x = step(t+1/2) .* step(-t+1/2);
+      end
