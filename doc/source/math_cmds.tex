@@ -1,0 +1,68 @@
+\newcommand{\To}[2]{{\vphantom{#2}}^{#1}#2}
+\newcommand{\From}[2]{{#2}_{#1}}
+\newcommand{\FromTo}[3]{{\vphantom{#3}}^{#2}{#3}_{#1}}
+\newcommand{\Jacobian}{J}
+\newcommand{\ForwardKinematics}{\mathcal{K}}
+\newcommand{\Configuration}{\theta}
+\newcommand{\GeneralizedCoordinate}{\theta}
+\newcommand{\GeneralizedForces}{\tau}
+\newcommand{\GeneralizedForce}{\tau}
+\newcommand{\Wrench}{\mathcal{F}}
+\newcommand{\WrenchTip}{\Wrench_{\mathrm{tip}}}
+\newcommand{\Twist}{\mathcal{V}}
+\newcommand{\Screw}{\mathcal{S}}
+\newcommand{\BodyScrew}{\mathcal{B}}
+\newcommand{\ScrewAxis}{\mathcal{A}}
+\newcommand{\RotationMatrix}{\mathbf{R}}
+\newcommand{\HomogeneousTransformationMatrix}{\mathbf{T}}
+\newcommand{\Transposed}{^{\mathsf{T}}}
+\newcommand{\PseudoInverse}{^{\dagger}}
+\newcommand{\Adjoint}[1]{\mathrm{Ad}_{#1}}
+\newcommand{\UnitLength}[1]{\hat{#1}}
+\newcommand{\CoorSys}[1]{\lbrace #1 \rbrace}
+\newcommand{\SOthree}{SO(3)}
+\newcommand{\sothree}{so(3)}
+\newcommand{\SEthree}{SE(3)}
+\newcommand{\sethree}{se(3)}
+\newcommand{\Norm}[1]{\lVert #1 \rVert}
+\newcommand{\Abs}[1]{\left| #1 \right|}
+\newcommand{\TildeSkew}[1]{\tilde{#1}}
+\newcommand{\HomogeneousCoordinate}[1]{\mathbf{#1}}
+\newcommand{\LittleAdjoint}[1]{\mathrm{ad}_{#1}}
+\newcommand{\ShortCos}[1]{\mathrm{c}_{#1}}
+\newcommand{\ShortSin}[1]{\mathrm{s}_{#1}}
+\newcommand{\trace}{\operatorname{trace}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\arctantwo}{\operatorname{arctan2}}
+\newcommand{\Mass}{\mathfrak{m}}
+\newcommand{\InertiaMatrix}{\mathcal{I}}
+\newcommand{\SpatialInertiaMatrix}{\mathcal{G}}
+\newcommand{\Gravity}{\mathfrak{g}}
+\newcommand{\Unit}[1]{\mathchoice{\left[\mathrm{#1}\right]}{[\mathrm{#1}]}{[\mathrm{#1}]}{[\mathrm{#1}]}}
+\newcommand{\DeltaD}{\mathrm{d}}
+\newcommand{\Diff}[2][t]{\frac{\DeltaD #2}{\DeltaD #1}}
+\newcommand{\TimeDiff}[2][]{\frac{\DeltaD^{#1} #2}{\DeltaD t^{#1}}}
+\newcommand{\PartialDiff}[2][t]{\frac{\partial #2}{\partial #1}}
+\newcommand{\Int}[2][t]{\int #2\,\DeltaD #1}
+\newcommand{\PH}[1]{\left\langle\mathrm{#1}\right\rangle}
+\newcommand{\PHrule}{{\color{lightgray}\rule{1ex}{1.75ex}}}
+\newcommand{\Frequency}{\nu}
+\newcommand{\AngularFrequency}{\omega}
+\newcommand{\PhaseShift}{\phi}
+\newcommand{\Amplitude}{A}
+\newcommand{\Period}{T}
+\newcommand{\rect}{\operatorname{rect}}
+\newcommand{\sgn}{\operatorname{sign}}
+\newcommand{\ramp}{\operatorname{ramp}}
+\newcommand{\step}{\operatorname{step}}
+\providecommand{\Re}{\operatorname{Re}}
+\providecommand{\Im}{\operatorname{Im}}
+\newcommand{\ComplexConjugate}[1]{\overline{#1}}
+\newcommand{\FourierTransform}[1]{\operatorname{\mathcal{F}}\left\lbrace #1 \right\rbrace}
+\newcommand{\LaplaceTransform}[1]{\operatorname{\mathcal{L}}\left\lbrace #1 \right\rbrace}
+\newcommand{\iFourierTransform}[1]{\operatorname{\mathcal{F}}^{-1}\left\lbrace #1 \right\rbrace}
+\newcommand{\iLaplaceTransform}[1]{\operatorname{\mathcal{L}}^{-1}\left\lbrace #1 \right\rbrace}
+\newcommand{\ZTransform}[1]{\operatorname{\mathcal{Z}}\left\lbrace #1 \right\rbrace}
+\newcommand{\iZTransform}[1]{\operatorname{\mathcal{Z}}^{-1}\left\lbrace #1 \right\rbrace}
+\newcommand{\TimeInstance}[1]{t_{\langle #1 \rangle}}
+\newcommand{\TimeStep}{h}

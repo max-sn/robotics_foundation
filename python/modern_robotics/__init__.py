@@ -1,2 +1,5 @@
-from .exponential_coordinates_of_rotation import (SO3_to_vec, so3_to_vec,
-                                                  vec_to_so3, vec_to_SO3)
+from .num import *
+
+
+__version__ = '0.1'
+__version_info__ = (0, 1)

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   viewBox="0 0 156.49333 48.16"
+   height="48.16"
+   width="156.49333"
+   xml:space="preserve"
+   id="svg2"
+   version="1.1"><metadata
+     id="metadata8"><rdf:RDF><cc:Work
+         rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
+     id="defs6" /><g
+     transform="matrix(1.3333333,0,0,-1.3333333,0,48.16)"
+     id="g10"><g
+       transform="scale(0.1)"
+       id="g12"><path
+         id="path14"
+         style="fill:none;stroke:#000000;stroke-width:15.9404;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+         d="M 360.074,141.285 H 813.625 M 360.074,27.8984 h 453.551" /><path
+         id="path16"
+         style="fill:#bfbfbf;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         d="m 360.074,42.0703 h 453.551 v 85.0391 H 360.074 Z" /><path
+         id="path18"
+         style="fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         d="m 606.547,295.172 c 1.562,6.047 1.906,7.766 14.516,7.766 3.796,0 5.171,0 5.171,3.281 0,1.734 -1.89,1.734 -2.406,1.734 -3.109,0 -6.922,-0.344 -10.031,-0.344 h -21.234 c -3.454,0 -7.422,0.344 -10.875,0.344 -1.391,0 -3.282,0 -3.282,-3.281 0,-1.734 1.375,-1.734 4.828,-1.734 10.704,0 10.704,-1.375 10.704,-3.282 0,-1.203 -0.344,-2.234 -0.688,-3.797 l -23.312,-93.078 c -1.547,-6.047 -1.891,-7.765 -14.5,-7.765 -3.797,0 -5.36,0 -5.36,-3.282 0,-1.734 1.735,-1.734 2.594,-1.734 3.109,0 6.906,0.344 10.016,0.344 h 21.234 c 3.453,0 7.266,-0.344 10.719,-0.344 1.375,0 3.453,0 3.453,3.109 0,1.907 -1.047,1.907 -4.844,1.907 -10.703,0 -10.703,1.375 -10.703,3.453 0,0.344 0,1.203 0.687,3.969 l 23.313,92.734" /><path
+         id="path20"
+         style="fill:none;stroke:#000000;stroke-width:129.327;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+         d="M 19.9141,84.5898 H 360.074 m 453.551,0 h 340.165 v 0" /><path
+         id="path22"
+         style="fill:none;stroke:#ffffff;stroke-width:97.4466;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+         d="M 19.9141,84.5898 H 360.074 m 453.551,0 h 340.165 v 0" /></g></g></svg>
