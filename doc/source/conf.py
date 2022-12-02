@@ -22,6 +22,8 @@ project = 'Robotics Foundation'
 copyright = '2021, M.J.W. Snippe'
 author = 'M.J.W. Snippe'
 
+release = 'v0.1'
+version = 'v0.1'
 
 # -- General configuration ---------------------------------------------------
 
