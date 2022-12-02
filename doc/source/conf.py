@@ -102,3 +102,15 @@ rst_prolog = r"""
 .. |matlab| replace:: MATLAB\ :sup:`®`
 .. |python| replace:: Python
 """
+
+
+# -- Latex settings -----------------------------------------------------------
+
+latex_documents = [('index', 'roboticsfoundation.tex', 'Robotics Foundation Syllabus', 'M.J.W. Snippe', 'manual', False)]
+latex_engine = 'xelatex'
+latex_elements = {
+    'preamble': r'''
+\input{math_cmds.tex}
+'''
+}
+latex_additional_files = ['math_cmds.tex']

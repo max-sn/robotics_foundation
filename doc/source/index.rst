@@ -1,11 +1,13 @@
-.. image:: https://img.shields.io/badge/python-3.7%2B-blue
-   :alt: Python 3.7+
-   :target: https://www.python.org/downloads/release/python-370/
-.. image:: https://img.shields.io/github/license/max-sn/robotics_foundation
-   :alt: GitHub
-.. image:: https://img.shields.io/readthedocs/robotics_foundation/latest
-   :alt: Read the Docs (version)
-   :target: https://robotics-foundation.readthedocs.io/
+.. only:: html
+
+   .. image:: https://img.shields.io/badge/python-3.7%2B-blue
+      :alt: Python 3.7+
+      :target: https://www.python.org/downloads/release/python-370/
+   .. image:: https://img.shields.io/github/license/max-sn/robotics_foundation
+      :alt: GitHub
+   .. image:: https://img.shields.io/readthedocs/robotics_foundation/latest
+      :alt: Read the Docs (version)
+      :target: https://robotics-foundation.readthedocs.io/
 
 Robotics Foundation
 ===================
