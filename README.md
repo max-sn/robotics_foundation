@@ -5,5 +5,3 @@
 This repository contains Python scripts to be used alongside the Robotics Foundation course of the [master program Robotics Systems Engineering](https://www.saxion.edu/programmes/master/robotics-systems-engineering), offered by [Saxion University of Applied Sciences](https://www.saxion.edu/).
 
 These scripts are mainly intended for educational purposes and are neither optimized for efficiency nor robustness.
-
-Future work might include Matlab&trade; versions of the Python scripts.
