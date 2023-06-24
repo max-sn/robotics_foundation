@@ -19,11 +19,11 @@ sys.path.insert(0, os.path.abspath('../../python'))
 # -- Project information -----------------------------------------------------
 
 project = 'Robotics Foundation'
-copyright = '2021, M.J.W. Snippe'
+copyright = '2021 - 2023, M.J.W. Snippe'
 author = 'M.J.W. Snippe'
 
-release = 'v0.1'
-version = 'v0.1'
+release = 'v0.1.1'
+version = 'v0.1.1'
 
 # -- General configuration ---------------------------------------------------
 
